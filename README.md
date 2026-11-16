@@ -15,9 +15,9 @@
 </div>
 
 ### Overview
-**SimpleCluster** is a simple, training-free visual token compression baseline for Video LLMs. It performs position-aware cross-frame clustering in the visual feature space and represents each cluster using the mean of its original visual features. Despite its simplicity, it **matches or surpasses** published video token compression methods.
+**SimpleComp** is a simple, training-free visual token compression baseline for Video LLMs. It performs position-aware cross-frame clustering in the visual feature space and represents each cluster using the mean of its original visual features. Despite its simplicity, it **outperforms** recently published video token compression methods.
 
-<img src="assets/simplecluster.png">
+<img src="assets/SimpleComp.png">
 
 <a href="https://arxiv.org/abs/2609.35394"><img src="https://img.shields.io/badge/arXiv-2609.35394-b31b1b.svg"></a>
 
@@ -25,22 +25,22 @@
 
 **[2026/09]** Code and evaluation scripts are open-sourced.
 
-**[2026/09]** SimpleCluster paper is released.
+**[2026/09]** SimpleComp paper is released.
 
 ## 🛠️ Installation
 
 ### Clone the repository
 
 ```shell
-git clone https://github.com/xiaozhang79/SimpleCluster
-cd SimpleCluster
+git clone https://github.com/xiaozhang79/SimpleComp
+cd SimpleComp
 ```
 
 ### Install dependencies
 
 ```shell
-conda create -n simplecluster python=3.10 -y
-conda activate simplecluster
+conda create -n SimpleComp python=3.10 -y
+conda activate SimpleComp
 pip install --upgrade pip
 pip install --no-build-isolation -r requirements.txt
 ```
