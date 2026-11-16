@@ -17,7 +17,7 @@
 ### Overview
 **SimpleComp** is a simple, training-free visual token compression baseline for Video LLMs. It performs position-aware cross-frame clustering in the visual feature space and represents each cluster using the mean of its original visual features. Despite its simplicity, it **outperforms** recently published video token compression methods.
 
-<img src="assets/SimpleComp.png">
+<img src="assets/overview.png">
 
 <a href="https://arxiv.org/abs/2609.35394"><img src="https://img.shields.io/badge/arXiv-2609.35394-b31b1b.svg"></a>
 
