@@ -19,7 +19,7 @@ for RATIO in $RATIOS; do
   mkdir -p "$RATIO_DIR"
   python -m accelerate.commands.launch --multi_gpu --num_processes "$NUM_PROCESSES" \
     --main_process_port "$MASTER_PORT" --mixed_precision no \
-    -m simplecluster.feature_analysis \
+    -m simplecomp.feature_analysis \
     --model-path "$MODEL_PATH" --ratio-percent "$LABEL" \
     --run-root "$RUN_ROOT" --log-path "$LOG_PATH" \
     --output-dir "$RATIO_DIR/records" \

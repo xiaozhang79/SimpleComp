@@ -20,7 +20,7 @@ for model_id, class_name in AVAILABLE_SIMPLE_MODELS.items():
         )
     )
 
-from simplecluster.registry import get_manifests
+from simplecomp.registry import get_manifests
 
 for manifest in get_manifests():
     MODEL_REGISTRY_V2.register_manifest(manifest, overwrite=True)

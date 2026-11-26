@@ -5,6 +5,7 @@
 <a href="https://scholar.google.com/citations?user=yYi80ToAAAAJ&hl=en">Xiao Zhang</a><sup>1,2</sup>&emsp;
 <a href="https://scholar.google.com/citations?user=u_RNsOUAAAAJ&hl=en">Wang Zeng</a><sup>2</sup>&emsp;
 <a href="https://scholar.google.com/citations?user=wrNd--oAAAAJ&hl=en">Sheng Jin</a><sup>2</sup>&emsp;
+<a href="https://scholar.google.com/citations?user=dC9Yg2AAAAAJ&hl=en">Yunzhe Liu</a><sup>1</sup>&emsp;
 <a href="https://scholar.google.com/citations?user=KZn9NWEAAAAJ&hl=en">Wentao Liu</a><sup>2</sup>&emsp;
 <a href="https://scholar.google.com/citations?user=AerkT0YAAAAJ&hl=en">Chen Qian</a><sup>2</sup>&emsp;
 <a href="https://scholar.google.com/citations?user=iFp1FOMAAAAJ&hl=en">Shichao Kan</a><sup>1</sup>
@@ -15,7 +16,7 @@
 </div>
 
 ### Overview
-**SimpleComp** is a simple, training-free visual token compression baseline for Video LLMs. It performs position-aware cross-frame clustering in the visual feature space and represents each cluster using the mean of its original visual features. Despite its simplicity, it **outperforms** recently published video token compression methods.
+**SimpleComp** is a simple, training-free video token compression baseline for Video LLMs that performs position-aware cross-frame clustering in the visual feature space and aggregates each cluster using the mean of its original visual features. Despite its simplicity, it **outperforms** recently published video token compression methods.
 
 <img src="assets/overview.png">
 
@@ -23,7 +24,7 @@
 
 ## 🚀 News
 
-**[2026/09]** Code and evaluation scripts are open-sourced.
+**[2026/09]** Code is open-sourced.
 
 **[2026/09]** SimpleComp paper is released.
 

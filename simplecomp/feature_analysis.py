@@ -6,9 +6,9 @@ from pathlib import Path
 import torch
 import torch.distributed as distributed
 
-from simplecluster.core import compress_video_tokens
-from simplecluster.feature_metrics import compute_feature_metrics
-from simplecluster.result_logs import RATIOS, rebuild_feature_log
+from simplecomp.core import compress_video_tokens
+from simplecomp.feature_metrics import compute_feature_metrics
+from simplecomp.result_logs import RATIOS, rebuild_feature_log
 
 
 TASKS = {

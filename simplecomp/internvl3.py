@@ -7,7 +7,7 @@ import torch
 
 from lmms_eval.api.registry import register_model
 from lmms_eval.models.simple.internvl3 import InternVL3
-from simplecluster.core import compress_video_tokens
+from simplecomp.core import compress_video_tokens
 
 
 def _append_audit(path: str | None, payload: dict) -> None:
@@ -23,8 +23,8 @@ def _append_audit(path: str | None, payload: dict) -> None:
         os.close(descriptor)
 
 
-@register_model("internvl3_simplecluster")
-class InternVL3SimpleCluster(InternVL3):
+@register_model("internvl3_simplecomp")
+class InternVL3SimpleComp(InternVL3):
     """Compress all frame-tile tokens before InternVL3 language generation."""
 
     def __init__(
@@ -33,19 +33,19 @@ class InternVL3SimpleCluster(InternVL3):
         modality: str = "video",
         batch_size: Union[str, int] = 1,
         retention_ratio: float = 0.10,
-        simplecluster_max_iters: int = 10,
+        simplecomp_max_iters: int = 10,
         token_audit_path: Optional[str] = None,
         **kwargs,
     ) -> None:
         ratio = float(retention_ratio)
         if modality != "video":
-            raise ValueError("SimpleCluster supports InternVL3 video evaluation only")
+            raise ValueError("SimpleComp supports InternVL3 video evaluation only")
         if int(batch_size) != 1:
-            raise ValueError("SimpleCluster requires batch_size=1")
+            raise ValueError("SimpleComp requires batch_size=1")
         if not 0.0 < ratio <= 1.0:
             raise ValueError("retention_ratio must be in (0, 1]")
-        if int(simplecluster_max_iters) != 10:
-            raise ValueError("SimpleCluster uses 10 refinement iterations")
+        if int(simplecomp_max_iters) != 10:
+            raise ValueError("SimpleComp uses 10 refinement iterations")
 
         super().__init__(
             pretrained=pretrained,
@@ -60,7 +60,7 @@ class InternVL3SimpleCluster(InternVL3):
             raise RuntimeError("The loaded InternVL model exposes an unsupported chat API")
         call_index = 0
 
-        def chat_with_simplecluster(
+        def chat_with_simplecomp(
             model_self,
             tokenizer,
             pixel_values,
@@ -186,7 +186,7 @@ class InternVL3SimpleCluster(InternVL3):
                 token_audit_path,
                 {
                     "call_index": call_index,
-                    "method": "SimpleCluster",
+                    "method": "SimpleComp",
                     "frames": len(patch_counts),
                     "frame_tile_counts": patch_counts,
                     "grid_size": int(dense_features.shape[1] ** 0.5),
@@ -200,4 +200,4 @@ class InternVL3SimpleCluster(InternVL3):
                 return response, current_history
             return response
 
-        model.chat = types.MethodType(chat_with_simplecluster, model)
+        model.chat = types.MethodType(chat_with_simplecomp, model)

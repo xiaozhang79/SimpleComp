@@ -20,11 +20,11 @@ for RATIO in $RATIOS; do
   python -m accelerate.commands.launch --multi_gpu --num_processes "$NUM_PROCESSES" \
     --main_process_port "$MASTER_PORT" --mixed_precision no \
     -m lmms_eval \
-    --model internvl3_simplecluster \
+    --model internvl3_simplecomp \
     --model_args "pretrained=$MODEL_PATH,modality=video,num_frame=32,max_num=12,total_max_num=64,use_flash_attn=True,retention_ratio=$RATIO,token_audit_path=$RATIO_DIR/token_audit.jsonl" \
     --tasks mvbench,egoschema,longvideobench_val_v,videomme --output_path "$RATIO_DIR" \
     2>&1 | tee "$RATIO_DIR/console.txt"
   RESULT_JSON=$(find "$RATIO_DIR" -type f -name '*_results.json' -print -quit)
-  python -m simplecluster.result_logs --run-root "$RUN_ROOT" --model internvl3 \
+  python -m simplecomp.result_logs --run-root "$RUN_ROOT" --model internvl3 \
     --ratio-percent "$LABEL" --result-json "$RESULT_JSON" --log-path "$LOG_PATH"
 done

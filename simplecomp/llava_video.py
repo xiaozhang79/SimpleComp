@@ -8,7 +8,7 @@ import torch
 
 from lmms_eval.api.registry import register_model
 from lmms_eval.models.simple.llava_vid import LlavaVid
-from simplecluster.core import compress_video_tokens
+from simplecomp.core import compress_video_tokens
 
 
 def _append_audit(path: str | None, payload: dict) -> None:
@@ -47,7 +47,7 @@ def _validate_input_profile(wrapper: LlavaVid) -> None:
     }
     if actual != expected:
         raise RuntimeError(
-            "SimpleCluster requires the fixed-64 native-grid profile; "
+            "SimpleComp requires the fixed-64 native-grid profile; "
             f"got {actual}"
         )
 
@@ -93,14 +93,14 @@ def _install_grid_layout(model, producer) -> None:
     model.add_token_per_grid = types.MethodType(grid, model)
 
 
-@register_model("llava_video_simplecluster")
-class LlavaVideoSimpleCluster(LlavaVid):
+@register_model("llava_video_simplecomp")
+class LlavaVideoSimpleComp(LlavaVid):
     """Compress 64-frame content while retaining native grid newlines."""
 
     def __init__(
         self,
         retention_ratio: float = 0.10,
-        simplecluster_max_iters: int = 10,
+        simplecomp_max_iters: int = 10,
         token_audit_path: Optional[str] = None,
         batch_size: Optional[Union[int, str]] = 1,
         **kwargs,
@@ -108,8 +108,8 @@ class LlavaVideoSimpleCluster(LlavaVid):
         ratio = float(retention_ratio)
         if not 0.0 < ratio <= 1.0:
             raise ValueError("retention_ratio must be in (0, 1]")
-        if int(simplecluster_max_iters) != 10:
-            raise ValueError("SimpleCluster uses 10 refinement iterations")
+        if int(simplecomp_max_iters) != 10:
+            raise ValueError("SimpleComp uses 10 refinement iterations")
 
         super().__init__(batch_size=batch_size, **kwargs)
         _validate_input_profile(self)
@@ -143,7 +143,7 @@ class LlavaVideoSimpleCluster(LlavaVid):
                 token_audit_path,
                 {
                     "call_index": call_index,
-                    "method": "SimpleCluster",
+                    "method": "SimpleComp",
                     "frames": int(frames),
                     "grid_size": 13,
                     "grid_newlines": int(frames * 13),

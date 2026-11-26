@@ -149,7 +149,7 @@ def _update(
 
 
 @torch.no_grad()
-def simplecluster_partition(
+def simplecomp_partition(
     features: torch.Tensor,
     group_count: int,
     *,
@@ -188,7 +188,7 @@ def simplecluster_partition(
     weights = F.one_hot(assignments, num_classes=int(group_count)).to(raw.dtype)
     counts = weights.sum(dim=1)
     if not bool((counts > 0).all()):
-        raise RuntimeError("SimpleCluster produced an empty final group")
+        raise RuntimeError("SimpleComp produced an empty final group")
     sums = torch.einsum("bnk,bnc->bkc", weights, raw)
     means = (sums / counts.unsqueeze(-1)).to(dtype=features.dtype)
     return means, assignments
@@ -248,7 +248,7 @@ def compress_video_tokens(
         frame_indices, tokens_per_frame, device=features.device
     )
     grouping = apply_3d_rope(raw, positions)
-    compressed, assignments = simplecluster_partition(
+    compressed, assignments = simplecomp_partition(
         raw,
         group_count,
         max_iters=max_iters,

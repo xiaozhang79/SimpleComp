@@ -20,11 +20,11 @@ for RATIO in $RATIOS; do
   python -m accelerate.commands.launch --multi_gpu --num_processes "$NUM_PROCESSES" \
     --main_process_port "$MASTER_PORT" --mixed_precision no \
     -m lmms_eval \
-    --model llava_onevision_simplecluster \
+    --model llava_onevision_simplecomp \
     --model_args "pretrained=$MODEL_PATH,model_name=llava_qwen,max_frames_num=32,attn_implementation=flash_attention_2,retention_ratio=$RATIO,token_audit_path=$RATIO_DIR/token_audit.jsonl" \
     --tasks mvbench,egoschema,longvideobench_val_v,videomme --output_path "$RATIO_DIR" \
     2>&1 | tee "$RATIO_DIR/console.txt"
   RESULT_JSON=$(find "$RATIO_DIR" -type f -name '*_results.json' -print -quit)
-  python -m simplecluster.result_logs --run-root "$RUN_ROOT" --model llava_onevision \
+  python -m simplecomp.result_logs --run-root "$RUN_ROOT" --model llava_onevision \
     --ratio-percent "$LABEL" --result-json "$RESULT_JSON" --log-path "$LOG_PATH"
 done
